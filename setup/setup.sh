@@ -23,10 +23,10 @@ setup_env()
 {
     empty_space
     echo "## env setting start"
-    BASH_CHECK=`cat ~/.bashrc | grep ${EVENTFLOW_HOME} | wc -l`
+    BASH_CHECK=`cat ~/.bashrc | grep ${WORKFLOW_HOME} | wc -l`
     if [ "${BASH_CHECK}" -eq "0" ]
     then
-        echo "source ${EVENTFLOW_HOME}/env/env.sh" >> ~/.bashrc
+        echo "source ${WORKFLOW_HOME}/env/env.sh" >> ~/.bashrc
         echo "env set complete"
     else
         echo "env is already setted"
