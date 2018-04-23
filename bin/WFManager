@@ -8,8 +8,8 @@ import time
 import WorkFlow.Common
 import WorkFlow.Common.Conf.Default as Default
 
-from WorkFlow import MainProcessor as MP
-import WorkFlow.Log as Log; Log.Init()
+#from WorkFlow import MainProcessor as MP
+import WorkFlow.Common.Log as Log; Log.Init()
 
 
 def main():
@@ -36,11 +36,11 @@ def main():
         if item.lower() in [ '-p', '--logprint' ] : logPrint = True
 
 
-    try: os.makedirs(Default.EVENTFLOW_HOME + '/log')
+    try: os.makedirs(Default.WORKFLOW_HOME + '/log')
     except: pass
 
-    import EventFlow.Log as Log;
-    LOG_NAME = Default.EVENTFLOW_HOME + "/log/%s.log" % name
+    import WorkFlow.Common.Log as Log
+    LOG_NAME = Default.WORKFLOW_HOME + "/log/%s.log" % name
 
     if logPrint:
         Log.Init()
@@ -50,9 +50,9 @@ def main():
     if backgroundMode:
         pid = os.fork()
         if pid == 0:
-            print "event flow start background mode. pid is %s" % os.getpid()
-            mp = MP(name, debugMode=debugMode, host=ip, port=int(port))
-            mp.run()
+            print "workflow start background mode. pid is %s" % os.getpid()
+            #mp = MP(name, debugMode=debugMode, host=ip, port=int(port))
+            #mp.run()
         else:
             sys.exit(0)
 
