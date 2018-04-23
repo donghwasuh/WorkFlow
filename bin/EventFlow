@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+
+import threading
+import os
+import sys
+import signal
+import time
+import EventFlow.Conf.Default as Default
+
+from EventFlow import MainProcessor as MP
+import EventFlow.Log as Log; Log.Init()
+
+
+def main():
+    try: ip, port, name = sys.argv[1:4]
+    except:
+        print "=" * 93
+        print "Usage : %s [ip] [port] [name] [options]" % sys.argv[0]
+        print "=" * 93
+        print "Options"
+        print "=" * 93
+        print "  -d, --debug      : debug mode, more log"
+        print "  -b, --background : background mode"
+        print "  -p, --logprint   : print log to stdout"
+        print "=" * 93
+        sys.exit(1)
+
+    debugMode = False
+    backgroundMode = False
+    logPrint = False
+
+    for item in sys.argv[4:]:
+        if item.lower() in [ '-d', '--debug' ]: debugMode = True
+        if item.lower() in [ '-b', '--background' ]: backgroundMode = True
+        if item.lower() in [ '-p', '--logprint' ] : logPrint = True
+
+
+    try: os.makedirs(Default.EVENTFLOW_HOME + '/log')
+    except: pass
+
+    import EventFlow.Log as Log;
+    LOG_NAME = Default.EVENTFLOW_HOME + "/log/%s.log" % name
+
+    if logPrint:
+        Log.Init()
+    else:
+        Log.Init(Log.CRotatingLog(os.path.expanduser(LOG_NAME), 1000000, 5))
+
+    if backgroundMode:
+        pid = os.fork()
+        if pid == 0:
+            print "event flow start background mode. pid is %s" % os.getpid()
+            mp = MP(name, debugMode=debugMode, host=ip, port=int(port))
+            mp.run()
+        else:
+            sys.exit(0)
+
+    mp = MP(name, debugMode=debugMode, host=ip, port=int(port))
+    mp.run()
+    
+
+if __name__ == '__main__': main()

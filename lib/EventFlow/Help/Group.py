@@ -1,0 +1,53 @@
+shw_hlp_msg = [ \
+    "show current group setting",
+    '---',
+    '- usage : shw group [options]',
+    '---',
+    '- options',
+    '---',
+    ("-g, --group [group name]", "shw group which applicable group name"),
+    ("-t, --task [task name]", "show all which contains task name"),
+    "---",
+    "- example",
+    "---",
+    ("shw group -t ps01", "show group which contains ps01 task"),
+    ("shw group -g group_test_01", "show group_test_01 group")
+]
+set_hlp_msg = [ \
+    'set group',
+    '---',
+    '- usage : set group [group_name]:[task_name]|[task_name]|...,...',
+    '---',
+    '- options',
+    '---',
+    'no options',
+    '---',
+    '- example',
+    '---',
+    ( 'set group test_group:ps01|ps02', 'ps01 and ps02 task set to test_group'),
+    ( 'set group g1:p1,g2:p1', 'p1 task set to g1 and g2 group'),
+    '---',
+    '- description',
+    '---',
+    '* you can use multiple [task_name] with "|" sep.',
+    '* you can use multiple group with "," sep.'
+]
+
+del_hlp_msg = [ \
+    'unset task from group',
+    '---',
+    '- usage : del group [group_name]:[task_name]|..., ...',
+    '---',
+    '- options',
+    '---',
+    'no options',
+    '---',
+    '- example',
+    '---',
+    ( 'del group g1:p1', "remove task p1 from group g1"),
+    '---',
+    '- description',
+    '---',
+    '* you can use multiple [task_name] with "|" sep.',
+    '* you can use multiple stdin with "," sep.',
+]

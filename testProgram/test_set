@@ -1,0 +1,8 @@
+set task process:ps01:python /home/mysqli/EventFlow/EventFlowSingle/testProgram/test_program_out.py test01
+set task process:ps02:python /home/mysqli/EventFlow/EventFlowSingle/testProgram/test_program_in_out.py test02
+set task process:ps03:python /home/mysqli/EventFlow/EventFlowSingle/testProgram/test_program_in_out.py test03
+set flow broad:ps01:ps02|ps03
+set task process:ps04:python /home/mysqli/EventFlow/EventFlowSingle/testProgram/test_program_out.py test01
+set task process:ps05:python /home/mysqli/EventFlow/EventFlowSingle/testProgram/test_program_in_out.py test02
+set task process:ps06:python /home/mysqli/EventFlow/EventFlowSingle/testProgram/test_program_in_out.py test03
+set flow share:ps04:ps05|ps06
